@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netflix</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+   
+    <div id="slideShow">
+      <!-- Navigation -->
+      <nav class="navbar">
+        <div class="container">
+        </div>
+        <div onclick="location.reload()" class="home">HOME</div>
+      </nav>
+      <div class="container">
+        <div id="text">
+        </div>
+        <form autocomplete="off" id="searchDiv">
+          <input
+            autocomplete="false"
+            name="hidden"
+            type="text"
+            style="display: none"
+          />
+          <input type="search" oninput="debounce(main,500)" id="search" placeholder="Movie Name.." />
+          <button class="btn" type="submit" onclick="display()">All Results</button>
+          <div id="result"></div>
+        </form>
+      </div>
+   
+      <div class="container" id="movies">
+        
+      </div>
+     </div>
+    
+    
+  </body>
+</html>
+<script src="index.js"></script>

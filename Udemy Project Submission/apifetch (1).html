@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container_ashish{
+            width:97%;
+            margin: auto;
+        }
+        #upper{
+            background-image: url("https://s.udemycdn.com/logout/ufb-logout-hero-desktop-v2.jpg");
+            height:500px;
+            background-size: cover;
+            width:100%;
+            margin: auto;
+        }
+        #inner{
+            background-image: url("https://www.udemy.com/staticx/udemy/images/v7/logo-ub.svg");
+            height:250px;
+            width:400px;
+            background-size: 300px 386px;
+            background-repeat: no-repeat;
+            margin-left: 68px;
+            padding-top: 170px;
+        }
+        .innerText{
+            padding-top: 70px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            padding-bottom: 20px;
+            font-weight: lighter;
+        }
+        button{
+            background-color: rgb(164,53,240);
+            color:white;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            padding:13px 40px 13px 40px;
+            font-size: 15px;
+            border:none;
+            width:170px;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+        #navbar_ashish{
+            display: flex;
+            margin-top: 4%;
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        #navbar_ashish>div{
+            margin-right: 30px;
+            color: rgb(94, 93, 93);
+            font-size: 15px;
+            font-weight:bolder;
+            padding-bottom: 16px;
+        }
+        #navbar_ashish>div:hover{
+            cursor: pointer;
+            color:black;
+        }
+        hr{
+            border:0.1px solid rgb(187, 186, 186);
+        }
+        #videoAll{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            gap:20px;
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        #videoAll>div:hover{
+            cursor: pointer;
+        }
+        .lastVideo>div:hover>.sideDiv{
+            visibility: visible;
+            opacity:1;
+            top:0;
+            transform: translateY(90%) ;
+        }
+        .lastVideo{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            gap:20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #videoAll>div>div{
+            margin-top: 7px;
+        }
+        .lastVideo>div>div{
+            margin-top: 7px;
+        }
+        #videoAll>div>div:nth-child(2){
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .lastVideo>div>div:nth-child(2){
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #videoAll>div>div:nth-child(3){
+            font-size: small;
+            color:gray;
+        }
+        .lastVideo>div>div:nth-child(3){
+            font-size: small;
+            color:gray;
+        }
+        #videoAll>div>div:nth-child(4){
+            font-weight: bolder;
+        }
+        .lastVideo>div>div:nth-child(4){
+            font-weight: bolder;
+        }
+        .lastText{
+            margin-top: 70px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .sideDiv{
+            position:sticky;
+            bottom:0;
+            width:200px;
+            box-shadow: border-box;
+            visibility: hidden;
+            opacity:0;
+            transition: 0s;
+            transform: translateY(100%);
+            height:0px; 
+            display: flex;
+        }
+        .sideDiv>div{
+            padding-left: 10px;
+        }
+        .sideDiv>div>img{
+            width:45px;
+            border-radius: 50%;
+        }
+        .sideDiv::before{
+            content:'';
+            position: absolute;
+            width:30px;
+            height:30px;
+            background-color: rgb(164,53,240);
+            transform: rotate(45deg);
+            right:26px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container_ashish">
+       <div id="upper">
+            <div id="inner">
+                <div class="innerText">Your company can give you access to our top 6,000+ business and tech courses.</div>
+                <button>Learn More</button>
+            </div>
+       </div>
+       <div id="navbar_ashish">
+           <div class="bus" onclick="designCourseForBusiness()">Business</div>
+           <div class="des" onclick="designCourseForDesign()">Design</div>
+           <div class="pho" onclick="designCourseForPhoto()">Photography & Video</div>
+           <div class="dev" onclick="designCourseForDevelopment()">Development</div>
+           <div class="mar" onclick="designCourseForMarketing()">Marketing</div>
+           <div class="it" onclick="designCourseForIT()">IT & Software</div>
+           <div class="per"onclick="designCourseForPersonal()">Personal Development</div>
+       </div>
+       <hr>
+       <div id="mainVideo"></div>
+       <div id="videoAll">
+
+       </div>
+       <div class="lastText"><b><h2>Students are viewing</h2></b></div>
+       <div class="lastVideo"></div>
+    </div>
+</body>
+</html>
+<script>   
+    async function designCourseForBusiness(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Business`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    let cartArr=[];
+    let wishlistArr=[];
+    designCourseForBusiness();
+    function appendData(data){
+        document.querySelector("#videoAll").innerHTML="";
+        data.map((el)=>{
+            
+            let div=document.createElement("div");
+            div.setAttribute("class","elementDiv");
+            let img=document.createElement("img");
+            img.src=el.image_240x135;
+            let p=document.createElement("div");
+            p.textContent=el.title;
+            let p1=document.createElement("div");
+            p1.textContent=el.visible_instructors[0].name;
+            // let p2=document.createElement("div");
+            // p2.textContent=el.price;
+            let rating=document.createElement("h4");
+rating.id="rating"
+rating.innerText=`${(Math.random() * 1 + 4).toFixed(1)}⭐⭐⭐⭐(${(Math.random() * 4000 + 10000).toFixed(0)})`
+
+
+
+
+let price=document.createElement("h4");
+price.innerText=el.price;
+
+
+
+            div.append(img,p,p1,rating,price);
+            div.onclick=()=>{
+                localStorage.setItem("singleProduct",JSON.stringify(el));
+                window.location.href=" searchedPage.html"
+            }
+            document.querySelector("#videoAll").append(div);
+        })
+    }
+    async function designCourseForDesign(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Design`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function designCourseForPhoto(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Business`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function designCourseForDevelopment(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Development`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function designCourseForMarketing(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Marketing`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function designCourseForIT(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Business`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function designCourseForPersonal(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?category=Business`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendData(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    async function lastData(){
+        try{
+            let res=await fetch(`https://www.udemy.com/api-2.0/courses/?ordering=highest-rated&ratings=4.5`,{
+                "method": "GET",
+                "headers":{
+                "Accept": "application/json, text/plain, /",
+                "Authorization": "Basic THBVTThWZFcya1YwZ3RHVEVBWk03V1VxdFlSSTF6RjJ5SU03d01OQjp6VHp6d3lMSTI5V2JVeGNYeHFDRmZVSFZmbkEyZjF3Z012MFU2TkhyNUNjR3h1ZEpjWEgzNUN6VGltV0NzT2UxcFFFV3I4NFJ2UEdxVkRzZnV3cHpPek1kTVA5SUViUG9Na2xtNnpvS2w0bWVLaVFjOFZMWWVjaWtwbEdTdVJKMg==",
+
+                "Content-Type": "application/json;charset=utf-8"
+                }
+            });
+            let data= await res.json();
+            console.log(data.results);
+            appendDataLast(data.results);
+        }
+        catch(err){
+        console.log(err)   
+        }
+    }
+    lastData();
+    function appendDataLast(data){
+        document.querySelector("#videoAll").innerHTML="";
+        data.map((el)=>{
+            let div=document.createElement("div");
+            div.setAttribute("class","elementDiv");
+            let img=document.createElement("img");
+            img.src=el.image_240x135;
+            let p=document.createElement("div");
+            p.textContent=el.title;
+            let p1=document.createElement("div");
+            p1.textContent=el.visible_instructors[0].name;
+            // let p2=document.createElement("div");
+            // p2.textContent=el.price;
+            let rating=document.createElement("h4");
+rating.id="rating"
+rating.innerText=`${(Math.random() * 1 + 4).toFixed(1)}⭐⭐⭐⭐(${(Math.random() * 4000 + 10000).toFixed(0)})`
+
+
+
+
+let price=document.createElement("h4");
+price.innerText=el.price;
+
+
+
+            // div.append(img,p,p1,rating,price);
+            let hoverDiv=document.createElement("div");
+            hoverDiv.setAttribute("class","sideDiv");
+            let div1=document.createElement("div");
+            let button=document.createElement("button");
+            button.textContent="Add to cart";
+            // let tit=document.createElement("div");
+            // tit.textContent=el.title;
+            let div2=document.createElement("div");
+            let imgw=document.createElement("img");
+            imgw.src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRKqH86UpBOxNZxXFaxbAwJ9TDamP78_INiw&usqp=CAU";
+            div1.append(button);
+            div2.append(imgw)
+            div1.onclick=()=>{
+                // addToCart(el);
+                cartArr.push(el);
+                localStorage.setItem("cartItem",JSON.stringify(cartArr));
+            }
+            div2.onclick=()=>{
+                wishlistArr.push(el);
+                localStorage.setItem("wishListItem",JSON.stringify(wishlistArr));
+            }
+            hoverDiv.append(div1,div2)
+            div.append(img,p,p1,rating,price,hoverDiv);
+            div.onclick=()=>{
+                localStorage.setItem("singleProduct",JSON.stringify(el));
+                window.location.href="searchedPage.html"
+            }
+            document.querySelector(".lastVideo").append(div);
+        });
+    }
+</script>
+<!-- `https://www.udemy.com/api-2.0/courses/?ordering=highest-rated&ratings=4.5` -->

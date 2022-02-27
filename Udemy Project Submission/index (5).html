@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 95%;
+            margin: auto;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+       
+#up_container_om{
+    /* border: 1px solid black; */
+    background-image: url(https://img-b.udemycdn.com/notices/web_banner/slide_1_image_udlite/db24b94e-d190-4d5a-b1dd-958f702cc8f5.jpg?secure=DujckClC3pZTZEqOAxK7PA%3D%3D%2C1645970579);
+    height: 400px;
+    
+
+   
+}
+#up_container_om>div{
+border: 1px solid black;
+width: 30%;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 0px 15px -5px;
+padding: 1%;
+margin-top: 5%;
+
+margin-left: 2%;
+}
+
+
+#container_om1,#container_om2,#container_om3,#container_om4,#container_om5{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap: 30px;
+    /* display: flex; */
+    margin-bottom: 20px;
+    /* border: 1px solid rgb(2, 2, 2); */
+}
+#container_om1>div>img,#container_om2>div>img,#container_om3>div>img,#container_om4>div>img,#container_om5>div>img{
+width: 100%;
+
+}
+.hariom_h1{
+    font-weight: 1000;
+    font-size:300%;
+}
+
+
+#price_box{
+    display: flex;
+    justify-content: space-around;
+   
+}
+#strikedprice{
+    text-decoration: line-through;
+    
+} 
+
+#rating{
+    color: #b76f17;
+}
+
+
+
+
+.sideDiv{
+            position:sticky;
+            bottom:0;
+            width:200px;
+            box-shadow: border-box;
+            visibility: hidden;
+            opacity:0;
+            transition: 0s;
+            transform: translateY(100%);
+            height:0px; 
+            display: flex;
+        }
+        .sideDiv>div{
+            padding-left: 10px;
+        }
+        .sideDiv>div>img{
+            width:45px;
+            border-radius: 50%;
+        }
+        .sideDiv::before{
+            content:'';
+            position: absolute;
+            width:30px;
+            height:30px;
+            background-color: rgb(164,53,240);
+            transform: rotate(45deg);
+            right:26px;
+        }
+        #container_om1>div:hover>.sideDiv,#container_om2>div:hover>.sideDiv,#container_om3>div:hover>.sideDiv,#container_om4>div:hover>.sideDiv,#container_om5>div:hover>.sideDiv{
+
+            visibility: visible;
+            opacity:1;
+            top:0;
+            transform: translateY(90%) ;
+        }
+        button{
+            background-color: rgb(164,53,240);
+            color:white;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            padding:13px 40px 13px 40px;
+            font-size: 15px;
+            border:none;
+            width:170px;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+        #name_om{
+            color: teal;
+        }
+    </style>
+    
+</head>
+<body>
+
+
+    <div id="up_container_om">
+       
+        <div>
+            <h1 >
+                Learning that gets you
+                </h1>
+                <h3>
+                    Skills for your present (and your future). Get <br> started with us.
+            </h3>
+        </div>
+    </div>
+    <h1 class="hariom_h1">What to learn next</h1>
+    
+    <div id="container_om">
+        <h2>Top courses in Development</h2> 
+<div id="container_om1"></div>
+<h2>Top courses in Design</h2>
+<div id="container_om2"></div>
+<h2>Top courses in Business</h2>
+<div id="container_om3"></div>
+<h2>Top courses in Marketing</h2>
+<div id="container_om4"></div>
+<h2>Top courses in  Music</h2>
+<div id="container_om5"></div>
+
+      
+    </div>
+</body>
+</html>
+
+
+
+<script src="index.js"></script>
+
+
+
+
